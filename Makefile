@@ -1,5 +1,7 @@
 CC = gcc
 
+.PHONY: all run rvs clean test arithmetic branch memory jump
+
 ASM_SRC = \
 assembler/src/assembler.c \
 assembler/src/encoder.c \
@@ -13,6 +15,8 @@ simulator/src/cpu.c \
 simulator/src/decode.c \
 simulator/src/execute.c
 
+CLI_SRC = cli/src/rvs.c
+
 CFLAGS = -Iassembler/include -Isimulator/include -Wall -Wextra
 
 all:
@@ -24,21 +28,26 @@ run: all
 
 arithmetic: all
 	./Simulator.exe assembler/test/test_arithmetic.txt
-	@echo.
+	@cmd /c echo.
 
 branch: all
 	./Simulator.exe assembler/test/test_branch.txt
-	@echo.
+	@cmd /c echo.
 
 memory: all
 	./Simulator.exe assembler/test/test_memory.txt
-	@echo.
+	@cmd /c echo.
 
 jump: all
 	./Simulator.exe assembler/test/test_jump.txt
-	@echo.
+	@cmd /c echo.
 
 test: arithmetic branch memory jump
 
+rvs:
+	$(CC) $(CLI_SRC) -Wall -Wextra -o rvs
+
+
 clean:
 	-del Simulator.exe
+	-del rvs.exe

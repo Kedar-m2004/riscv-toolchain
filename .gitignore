@@ -1,11 +1,12 @@
-#Build Files:
+# Build Files
 build/
 *.exe
 *.o
 
-#Output Files: 
+# Generated Output
 output/
 *.bin
 *.hex
 
+# Editor Settings
 .vscode/
