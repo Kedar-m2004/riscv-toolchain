@@ -152,6 +152,6 @@ This project is being developed incrementally with a strong focus on correctness
 B.Tech Electrical Engineering
 Systems Programming | Computer Architecture | RISC-V | Operating Systems
 
-Email: modak.kedar123@gmail.com 
-GitHub: https://github.com/Kedar-m2004 
-LinkedIn: https://linkedin.com/in/kedar-modak-56363b290/
+- Email: modak.kedar123@gmail.com  
+- GitHub: https://github.com/Kedar-m2004  
+- LinkedIn: https://linkedin.com/in/kedar-modak-56363b290/
