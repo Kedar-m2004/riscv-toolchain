@@ -1,7 +1,11 @@
+#Build Files:
+build/
 *.exe
 *.o
 
-output/*.bin
-output/*.hex
+#Output Files: 
+output/
+*.bin
+*.hex
 
 .vscode/
