@@ -11,6 +11,6 @@ output/
 # Editor Settings
 .vscode/
 
-#Extra Files
-Setting_environment.txt
+#Documents for Guide
+docs/*.txt
 
