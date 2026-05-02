@@ -15,7 +15,9 @@ simulator/src/cpu.c \
 simulator/src/decode.c \
 simulator/src/execute.c
 
-CLI_SRC = cli/src/rvs.c
+CLI_SRC = \
+cli/src/rvs.c\
+cli/src/rvs_functions.c
 
 CFLAGS = -Iassembler/include -Isimulator/include -Wall -Wextra
 
@@ -45,9 +47,14 @@ jump: all
 test: arithmetic branch memory jump
 
 rvs:
-	$(CC) $(CLI_SRC) -Wall -Wextra -o rvs
+	$(CC) $(CLI_SRC) -Icli/include -Wall -Wextra -o rvs
 
 
+install: rvs
+	cmd /c copy /Y rvs.exe C:\tools\rvs.exe
+	powershell -NoProfile -Command '$$p=[Environment]::GetEnvironmentVariable("Path","User"); if($$p -notlike "*C:\tools*"){ [Environment]::SetEnvironmentVariable("Path", $$p + ";C:\tools", "User") }'
+
+	
 clean:
 	-del Simulator.exe
 	-del rvs.exe
