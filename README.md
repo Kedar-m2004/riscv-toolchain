@@ -16,7 +16,7 @@ This project aims to progressively build a complete **RISC-V Studio** ecosystem 
 * Hardware Co-Design Platform
 
 Current development stage:  
-**Milestone 1 — Assembler + ISA Simulator + Installable CLI Integration**
+**Milestone 1 — Assembler + ISA Simulator + Portable Installable CLI**
 
 ---
 
@@ -30,7 +30,8 @@ Current development stage:
 * Symbol table generation
 * Intermediate code generation
 * Machine code generation
-* Binary and hexadecimal output generation
+* Binary output generation (`program.bin`)
+* Hexadecimal output generation (`program.hex`)
 
 ## ISA Simulator
 
@@ -47,11 +48,12 @@ Current development stage:
 * Native command-line interface
 * Global executable installation
 * Automatic PATH integration
-* Built-in test execution
+* Portable execution from any folder
+* Built-in regression tests
 * Custom assembly file execution
+* Runtime diagnostics using `doctor`
 * Help command
 * Version command
-* Full regression test command
 * Command aliases (`-h`, `--help`, `-v`, `--version`)
 * Table-driven command parsing
 * Modular command dispatch
@@ -108,6 +110,9 @@ riscv-studio/
 │   ├── include/
 │   └── src/
 │
+├── scripts/
+│   └── install_path.ps1
+│
 ├── output/
 │
 ├── Makefile
@@ -118,18 +123,18 @@ riscv-studio/
 
 # Requirements (Windows)
 
-Before building or installing, make sure the following are available:
+Before building or installing:
 
-* MinGW GCC
+* GCC (MinGW)
 * mingw32-make
-* PowerShell (Windows 10/11)
+* PowerShell
 
 ---
 
 # Build
 
 ```bash
-# Build Simulator
+# Build simulator
 mingw32-make
 
 # Build CLI
@@ -140,33 +145,133 @@ mingw32-make rvs
 
 # Installation
 
+Install globally:
+
 ```bash
 mingw32-make install
 ```
 
-After installation, `rvs` becomes globally accessible from any terminal.
+This installs:
+
+```text
+C:\tools\rvs.exe
+C:\tools\Simulator.exe
+```
+
+and automatically adds:
+
+```text
+C:\tools
+```
+
+to User PATH.
+
+After installation:
+
+```bash
+rvs
+```
+
+works from any folder.
+
+---
+
+# Runtime Diagnostics
+
+Verify installation:
+
+```bash
+rvs doctor
+```
+
+Example output:
+
+```text
+[PASS] GCC is installed
+[PASS] mingw32-make is installed
+[PASS] PowerShell is available
+[PASS] C:\tools exists
+[PASS] C:\tools\rvs.exe exists
+[PASS] C:\tools\Simulator.exe exists
+[PASS] C:\tools is present in PATH
+
+System is ready for RISC-V Studio.
+```
 
 ---
 
 # CLI Usage
 
+## Help
+
 ```bash
 rvs help
 rvs -h
 rvs --help
+```
 
+## Version
+
+```bash
 rvs version
 rvs -v
 rvs --version
+```
 
+## Diagnostics
+
+```bash
+rvs doctor
+```
+
+## Regression Tests
+
+```bash
 rvs test
+```
 
+## Run Built-In Tests
+
+```bash
 rvs run arithmetic
 rvs run branch
 rvs run memory
 rvs run jump
+```
 
-rvs run assembler/test/test_arithmetic.txt
+## Run Custom Assembly Program
+
+Create:
+
+```text
+hello.asm
+```
+
+Example:
+
+```asm
+ADDI R1, R0, 10
+ADDI R2, R0, 20
+ADD R3, R1, R2
+HLT
+```
+
+Run:
+
+```bash
+rvs run hello.asm
+```
+
+This works from any folder on Windows.
+
+---
+
+# Uninstall
+
+Remove RISC-V Studio:
+
+```bash
+mingw32-make uninstall
 ```
 
 ---
@@ -194,14 +299,28 @@ mingw32-make test
 
 ## Milestone 1 Complete
 
+### Core Toolchain
+
 * Two-pass assembler implemented
-* ISA simulator integrated
-* Automated Makefile-based testing added
+* ISA simulator implemented
+* Binary + hex generation implemented
+
+### CLI Platform
+
 * Installable `rvs` CLI implemented
 * Global command execution enabled
 * Automatic PATH integration implemented
-* Command registry architecture implemented
-* Table-driven command parsing implemented
+* Runtime diagnostics (`doctor`) implemented
+
+### Portability
+
+* Static executable builds
+* Portable Windows installation
+* Portable uninstall
+* Run assembly programs from any folder
+
+### Testing
+
 * Arithmetic test passing
 * Branch test passing
 * Memory test passing
@@ -209,20 +328,38 @@ mingw32-make test
 
 ---
 
-# Next Milestones
+# Versioning
 
-* Improve debug output formatting
-* Strengthen error handling
-* Implement remaining RV32I instructions
-* Add automated regression testing
-* Develop 5-stage pipelined CPU simulator
-* Develop cache simulator
-* Begin GUI-based Studio environment
-* Begin transition toward **RISC-V Studio Core Architecture**
+Current stable release:
+
+```text
+v0.1.0
+```
 
 ---
 
-This project is being developed incrementally with a strong focus on **correctness, modularity, developer experience, and systems-level engineering.**
+# Next Milestones
+
+* Remove all compiler warnings
+* Improve error handling
+* Add remaining RV32I instructions
+* Add `rvs examples`
+* Add `rvs new hello.asm`
+* Develop 5-stage pipelined CPU simulator
+* Develop cache simulator
+* Develop instruction trace viewer
+
+---
+
+This project is being developed incrementally with a strong focus on:
+
+* Correctness
+* Modularity
+* Developer Experience
+* Systems-Level Engineering
+* Computer Architecture Research
+
+---
 
 # Author
 
