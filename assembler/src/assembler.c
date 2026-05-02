@@ -142,8 +142,8 @@ int assemble(const char* input_file){
 
 
     FILE *bin_out, *hex_out;
-    bin_out = fopen("output/program.bin", "wb");
-    hex_out = fopen("output/program.hex", "w");
+    bin_out = fopen("program.bin", "wb");
+    hex_out = fopen("program.hex", "w");
     if(bin_out == NULL){
         printf("\nError in opening the file.\n");
         exit(1);

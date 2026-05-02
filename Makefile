@@ -1,6 +1,6 @@
 CC = gcc
 
-.PHONY: all run rvs clean test arithmetic branch memory jump
+.PHONY: all run rvs clean test arithmetic branch memory jump install uninstall
 
 ASM_SRC = \
 assembler/src/assembler.c \
@@ -19,7 +19,7 @@ CLI_SRC = \
 cli/src/rvs.c\
 cli/src/rvs_functions.c
 
-CFLAGS = -Iassembler/include -Isimulator/include -Wall -Wextra
+CFLAGS = -Iassembler/include -Isimulator/include -Wall -Wextra -static
 
 all:
 	$(CC) $(SIM_SRC) $(ASM_SRC) $(CFLAGS) -o Simulator
@@ -47,13 +47,19 @@ jump: all
 test: arithmetic branch memory jump
 
 rvs:
-	$(CC) $(CLI_SRC) -Icli/include -Wall -Wextra -o rvs
+	$(CC) $(CLI_SRC) -Icli/include -Wall -Wextra -static -o rvs
 
 
-install: rvs
+install: all rvs
+	powershell -NoProfile -Command "New-Item -ItemType Directory -Force -Path 'C:\tools' | Out-Null"
 	cmd /c copy /Y rvs.exe C:\tools\rvs.exe
-	powershell -NoProfile -Command '$$p=[Environment]::GetEnvironmentVariable("Path","User"); if($$p -notlike "*C:\tools*"){ [Environment]::SetEnvironmentVariable("Path", $$p + ";C:\tools", "User") }'
+	cmd /c copy /Y Simulator.exe C:\tools\Simulator.exe
+	powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install_path.ps1
+	
 
+uninstall:
+	-powershell -NoProfile -Command "Remove-Item -Force 'C:\tools\rvs.exe' -ErrorAction SilentlyContinue"
+	-powershell -NoProfile -Command "Remove-Item -Force 'C:\tools\Simulator.exe' -ErrorAction SilentlyContinue"
 	
 clean:
 	-del Simulator.exe

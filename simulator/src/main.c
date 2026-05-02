@@ -33,7 +33,7 @@ int main(int argc, char* argv[]){   // argc = argument count, argv = argument va
     printf("\n\n\n\n------------ WELCOME TO SIMULATOR ------------\n");
     
     // Loading file in main memory (RAM)
-    load_program("output/program.bin");
+    load_program("program.bin");
     
     // executing the code: 
     cpu();

@@ -8,7 +8,8 @@ typedef enum{
     RUN,       // 1
     VERSION,    // 2
     TEST,       // 3
-    INVALID       // 4
+    DOCTOR,     // 4
+    INVALID       // 5
 } Command;
 
 typedef struct {
@@ -22,5 +23,6 @@ void print_help();
 int run(int argc, char* argv[]);
 int version();
 int test();
+int doctor();
 
 #endif

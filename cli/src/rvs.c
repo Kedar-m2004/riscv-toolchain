@@ -28,6 +28,9 @@ int main(int argc, char* argv[]){
         case TEST:
             return test();
 
+        case DOCTOR:
+            return doctor();
+
         default:
             printf("Unknown command: %s.\n", argv[1]);
             printf("Type 'rvs help' for available commands\n");
