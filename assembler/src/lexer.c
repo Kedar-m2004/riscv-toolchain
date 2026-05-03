@@ -9,11 +9,17 @@
 void add_token(Token tokens[], int* count, TokenType type, const char* value){
 
     if(*count >= MAX_TOKENS){
-        printf("Error: Too many tokens.\n");
+        printf("\nError: Too many tokens.\n");
         exit(1);
     }
 
     tokens[*count].type = type;
+
+    if(strlen(value) >= sizeof(tokens[*count].value)){
+        printf("\nError: Token too long: %s\n", value);
+        exit(1);
+    }
+
     strcpy(tokens[*count].value, value);
     (*count)++;
 }
@@ -67,6 +73,12 @@ int lexer(char* line, Token tokens[]){
 
         // Word Extracting Loop:
         while( (*ptr)&&(!isspace(*ptr))&&(*ptr != ',')&&(*ptr != '(')&&(*ptr != ')') ){
+
+            if(i >= ((int)sizeof(buffer) - 1)){
+                printf("\nError: Token too long.\n");
+                exit(1);
+            }
+
             buffer[i++] = *ptr;
             ptr++;
         }
