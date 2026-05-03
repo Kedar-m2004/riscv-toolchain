@@ -1,62 +1,117 @@
 # RISC-V Studio
 
-A custom **RISC-V assembler, ISA simulator, and installable command-line development platform** built in **C**, developed as part of a long-term systems programming project.
+A custom **RISC-V assembler, ISA simulator, and installable command-line development platform** built completely in **C**, developed as part of a long-term systems programming and computer architecture initiative.
 
-This project aims to progressively build a complete **RISC-V Studio** ecosystem from scratch, including:
+**RISC-V Studio** aims to evolve into a complete **AI-assisted computer architecture and hardware co-design platform**, built entirely from scratch.
 
-* Assembler
-* Instruction Set Simulator
-* Pipelined CPU Simulator
-* Cache Simulator
-* Instruction Trace Viewer
-* Performance Profiler
-* Custom Operating System
-* High-Level Language Compiler
-* AI Verification Framework
-* Hardware Co-Design Platform
+---
 
-Current development stage:  
-**Milestone 1 — Assembler + ISA Simulator + Portable Installable CLI**
+# Vision
+
+## Phase 1 — RISC-V Studio Core (2026–2027)
+
+A **MATLAB-like learning and experimentation platform for computer architecture**, including:
+
+- Two-Pass Assembler
+- Instruction Set Simulator
+- 5-Stage Pipeline Simulator
+- Cache Simulator
+- Instruction Trace Viewer
+- Performance Profiler
+
+## Phase 2 — AI Verification
+
+- Automatic assembly test generation
+- Corner-case discovery
+- Regression testing
+- Assertion generation
+- Bug localization
+
+## Phase 3 — Hardware Co-Design
+
+- Workload analysis
+- Custom instruction recommendations
+- Accelerator suggestions
+- Verilog generation
+- Testbench generation
+- FPGA deployment
+
+## Phase 4 — Collaboration Ecosystem
+
+- Benchmark sharing
+- RTL versioning
+- Waveform diffing
+- Collaborative architecture experimentation
+
+---
+
+# Current Development Stage
+
+## Milestone 1 Complete
+
+### Assembler + ISA Simulator + Portable CLI
+
+Current stable release:
+
+```text
+v0.1.1
+```
 
 ---
 
 # Features
 
-## Assembler
+# Assembler
 
-* Two-pass assembly process
-* Lexical analysis and parsing
-* Label resolution
-* Symbol table generation
-* Intermediate code generation
-* Machine code generation
-* Binary output generation (`program.bin`)
-* Hexadecimal output generation (`program.hex`)
+- Two-pass assembly process
+- Lexical analysis
+- Table-driven parsing
+- Symbol table generation
+- Label resolution
+- Intermediate code generation
+- Machine code generation
+- Binary output generation (`program.bin`)
+- Hexadecimal output generation (`program.hex`)
+- Token overflow protection
+- Safer token storage with bounds checking
 
-## ISA Simulator
+---
 
-* Register file simulation
-* Instruction memory simulation
-* Fetch–Decode–Execute cycle
-* Arithmetic instruction execution
-* Memory instruction execution
-* Branch and jump instruction execution
-* Final register state dump after execution
+# ISA Simulator
 
-## CLI (`rvs`)
+- Register file simulation
+- Instruction memory simulation
+- Fetch–Decode–Execute cycle
+- Arithmetic instruction execution
+- Memory instruction execution
+- Branch instruction execution
+- Jump instruction execution
+- Final register-state dump
 
-* Native command-line interface
-* Global executable installation
-* Automatic PATH integration
-* Portable execution from any folder
-* Built-in regression tests
-* Custom assembly file execution
-* Runtime diagnostics using `doctor`
-* Help command
-* Version command
-* Command aliases (`-h`, `--help`, `-v`, `--version`)
-* Table-driven command parsing
-* Modular command dispatch
+---
+
+# CLI (`rvs`)
+
+- Native command-line interface
+- Install globally on Windows
+- Automatic PATH integration
+- Portable execution from any folder
+- Built-in regression tests
+- Execute custom `.asm` programs
+- Runtime diagnostics (`doctor`)
+- Version command
+- Help command
+- Command aliases
+
+Supported aliases:
+
+```bash
+-h
+--help
+
+-v
+--version
+```
 
 ---
 
@@ -64,28 +119,28 @@ Current development stage:
 
 ## Arithmetic
 
-* ADD
-* SUB
-* ADDI
+- ADD
+- SUB
+- ADDI
 
 ## Memory
 
-* LW
-* SW
+- LW
+- SW
 
 ## Branch
 
-* BEQ
-* BNE
+- BEQ
+- BNE
 
 ## Jump
 
-* JAL
-* JALR
+- JAL
+- JALR
 
 ## Custom
 
-* HLT
+- HLT
 
 > `HLT` is a custom halt instruction used by this simulator.
 
@@ -123,21 +178,25 @@ riscv-studio/
 
 # Requirements (Windows)
 
-Before building or installing:
+Before building:
 
-* GCC (MinGW)
-* mingw32-make
-* PowerShell
+- GCC (MinGW)
+- mingw32-make
+- PowerShell
 
 ---
 
 # Build
 
-```bash
-# Build simulator
-mingw32-make
+## Build Simulator
 
-# Build CLI
+```bash
+mingw32-make
+```
+
+## Build CLI
+
+```bash
 mingw32-make rvs
 ```
 
@@ -172,7 +231,7 @@ After installation:
 rvs
 ```
 
-works from any folder.
+works from **any folder on Windows**.
 
 ---
 
@@ -184,7 +243,7 @@ Verify installation:
 rvs doctor
 ```
 
-Example output:
+Example:
 
 ```text
 [PASS] GCC is installed
@@ -224,13 +283,13 @@ rvs --version
 rvs doctor
 ```
 
-## Regression Tests
+## Built-In Regression Tests
 
 ```bash
 rvs test
 ```
 
-## Run Built-In Tests
+## Individual Tests
 
 ```bash
 rvs run arithmetic
@@ -240,12 +299,6 @@ rvs run jump
 ```
 
 ## Run Custom Assembly Program
-
-Create:
-
-```text
-hello.asm
-```
 
 Example:
 
@@ -262,13 +315,11 @@ Run:
 rvs run hello.asm
 ```
 
-This works from any folder on Windows.
+This works from **any folder on Windows**.
 
 ---
 
 # Uninstall
-
-Remove RISC-V Studio:
 
 ```bash
 mingw32-make uninstall
@@ -276,7 +327,9 @@ mingw32-make uninstall
 
 ---
 
-# Run Individual Tests
+# Testing
+
+## Run Individual Tests
 
 ```bash
 mingw32-make arithmetic
@@ -285,9 +338,7 @@ mingw32-make memory
 mingw32-make jump
 ```
 
----
-
-# Run Complete Test Suite
+## Run Complete Test Suite
 
 ```bash
 mingw32-make test
@@ -295,69 +346,53 @@ mingw32-make test
 
 ---
 
-# Current Status
+# Engineering Improvements in v0.1.1
 
-## Milestone 1 Complete
-
-### Core Toolchain
-
-* Two-pass assembler implemented
-* ISA simulator implemented
-* Binary + hex generation implemented
-
-### CLI Platform
-
-* Installable `rvs` CLI implemented
-* Global command execution enabled
-* Automatic PATH integration implemented
-* Runtime diagnostics (`doctor`) implemented
-
-### Portability
-
-* Static executable builds
-* Portable Windows installation
-* Portable uninstall
-* Run assembly programs from any folder
-
-### Testing
-
-* Arithmetic test passing
-* Branch test passing
-* Memory test passing
-* Jump test passing
-
----
-
-# Versioning
-
-Current stable release:
-
-```text
-v0.1.0
-```
+- Zero compiler warnings
+- Strict C11 builds
+- `-Wall -Wextra -Wpedantic`
+- Encoder API cleanup
+- Safer lexer token storage
+- Token overflow detection
+- Negative testing added
+- Windows install/uninstall workflow validated
 
 ---
 
 # Next Milestones
 
-* Remove all compiler warnings
-* Improve error handling
-* Add remaining RV32I instructions
-* Add `rvs examples`
-* Add `rvs new hello.asm`
-* Develop 5-stage pipelined CPU simulator
-* Develop cache simulator
-* Develop instruction trace viewer
+## v0.1.2
+
+- Improve CLI path handling
+- Better file diagnostics
+- Consistent stderr-based error reporting
+- Exit-code cleanup
+- Negative test expansion
+
+## Milestone 2
+
+- Remaining RV32I instructions
+- Pipeline hazard detection
+- Forwarding
+- Stall logic
+- Branch prediction experiments
+
+## Milestone 3
+
+- Cache simulator
+- Instruction trace viewer
+- Performance profiler
 
 ---
 
-This project is being developed incrementally with a strong focus on:
+This project is being developed incrementally with strong focus on:
 
-* Correctness
-* Modularity
-* Developer Experience
-* Systems-Level Engineering
-* Computer Architecture Research
+- Correctness
+- Modularity
+- Portability
+- Developer Experience
+- Systems-Level Engineering
+- Computer Architecture Research
 
 ---
 
@@ -365,8 +400,8 @@ This project is being developed incrementally with a strong focus on:
 
 **Kedar Modak**  
 B.Tech Electrical Engineering  
-Systems Programming | Computer Architecture | RISC-V | Operating Systems  
+Systems Programming | Computer Architecture | RISC-V | Operating Systems
 
-- Email: modak.kedar123@gmail.com  
-- GitHub: https://github.com/Kedar-m2004  
+- GitHub: https://github.com/Kedar-m2004
 - LinkedIn: https://linkedin.com/in/kedar-modak-56363b290/
+- Email: modak.kedar123@gmail.com
