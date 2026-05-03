@@ -19,7 +19,8 @@ CLI_SRC = \
 cli/src/rvs.c\
 cli/src/rvs_functions.c
 
-CFLAGS = -Iassembler/include -Isimulator/include -Wall -Wextra -static
+CFLAGS = -Iassembler/include -Isimulator/include -Wall -Wextra -Wpedantic -std=c11 -static
+CLI_CFLAGS = -Icli/include -Wall -Wextra -Wpedantic -std=c11 -static
 
 all:
 	$(CC) $(SIM_SRC) $(ASM_SRC) $(CFLAGS) -o Simulator
@@ -47,7 +48,7 @@ jump: all
 test: arithmetic branch memory jump
 
 rvs:
-	$(CC) $(CLI_SRC) -Icli/include -Wall -Wextra -static -o rvs
+	$(CC) $(CLI_SRC) $(CLI_CFLAGS) -o rvs
 
 
 install: all rvs

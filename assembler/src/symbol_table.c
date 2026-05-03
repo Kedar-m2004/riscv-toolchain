@@ -1,4 +1,4 @@
-// '.c' file for symbol table
+// symbol_table.c
 
 #include<stdio.h>
 #include<string.h>

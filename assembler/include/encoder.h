@@ -28,6 +28,6 @@ unsigned int encode_I(int rd, int rs1, int imm, int funct3, int opcode);        
 unsigned int encode_B(int rs1, int rs2, int imm, int funct3, int opcode);               // Branch Type Encoding
 unsigned int encode_J(int rd, int imm, int opcode);               // Jump Type Encoding
 
-unsigned int encode(Token tokens[], int count, int pc);     // here count is a measure of number of tokens.
+unsigned int encode(Token tokens[], int pc);
 
 #endif

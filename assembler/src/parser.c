@@ -3,6 +3,7 @@
 
 #include<stdio.h>
 #include<string.h>
+#include<stddef.h>
 #include"parser.h"
 
 // Instruction Table (Array Declaration):
@@ -29,7 +30,7 @@ Instruction instruction_set[] = {
     {"JAL", 3, {REGISTER, COMMA, IDENTIFIER}},
 
     // HALT INSTRUCTION:
-    {"HLT", 0, {}}          // Also counted in R_TYPE, but a custom case
+    {"HLT", 0, {UNKNOWN}}          // Also counted in R_TYPE, but a custom case
 };
 
 // Calculation for number of instructions in the table: 
@@ -43,7 +44,7 @@ int parser(Token tokens[], int count, int line_num){
         '1' for valid opcode.
     */
 
-    for(int i = 0; i<INSTRUCTION_COUNT; i++){
+    for(size_t i = 0; i<INSTRUCTION_COUNT; i++){
 
         if(count == 0){
             return 0;

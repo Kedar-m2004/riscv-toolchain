@@ -1,7 +1,10 @@
+// encoder.c
+
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
 #include<ctype.h>
+#include<stddef.h>
 #include"encoder.h"
 #include"symbol_table.h"
 
@@ -146,9 +149,9 @@ unsigned int encode_I(int rd, int rs1, int imm, int funct3, int opcode){
     return inst;
 }
 
-unsigned int encode(Token tokens[], int count, int pc){
+unsigned int encode(Token tokens[], int pc){
 
-    for(int i = 0; i<ENC_COUNT; i++){           
+    for(size_t i = 0; i < ENC_COUNT; i++){           
         // this linear search can be optimized using hashmaps, for O(1) lookup
          
         if( strcmp(tokens[0].value, encode_table[i].name) == 0 ){

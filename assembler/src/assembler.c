@@ -1,3 +1,5 @@
+// assembler.c
+
 #include<stdio.h>
 #include<string.h>
 #include<ctype.h>
@@ -173,7 +175,7 @@ int assemble(const char* input_file){
             );
 
             // MACHINE CODE GENERATION
-            unsigned int machine_code = encode(tokens, tok_count, intermediate[i].address);
+            unsigned int machine_code = encode(tokens, intermediate[i].address);
 
             // WRITTING MACINE CODE IN A FILE:
             printf(" | Machine Code: 0x%08X", machine_code);
