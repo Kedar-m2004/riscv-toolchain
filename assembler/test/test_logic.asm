@@ -1,0 +1,10 @@
+; Logic Test
+
+ADDI R1, R0, 10
+ADDI R2, R0, 12
+
+AND R3, R1, R2
+OR R4, R1, R2
+XOR R5, R1, R2
+
+HLT

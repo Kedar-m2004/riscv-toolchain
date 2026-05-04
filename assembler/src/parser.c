@@ -12,9 +12,16 @@ Instruction instruction_set[] = {
     // R_TYPE
     {"ADD", 5, {REGISTER, COMMA, REGISTER, COMMA, REGISTER}},
     {"SUB", 5, {REGISTER, COMMA, REGISTER, COMMA, REGISTER}},
+    {"AND", 5, {REGISTER, COMMA, REGISTER, COMMA, REGISTER}},
+    {"OR",  5, {REGISTER, COMMA, REGISTER, COMMA, REGISTER}},
+    {"XOR", 5, {REGISTER, COMMA, REGISTER, COMMA, REGISTER}},
 
     // I_TYPE
     {"ADDI", 5, {REGISTER, COMMA, REGISTER, COMMA, IMMEDIATE}},
+    {"XORI", 5, {REGISTER, COMMA, REGISTER, COMMA, IMMEDIATE}},
+    {"ORI",  5, {REGISTER, COMMA, REGISTER, COMMA, IMMEDIATE}},
+    {"ANDI", 5, {REGISTER, COMMA, REGISTER, COMMA, IMMEDIATE}},
+
     {"JALR", 6, {REGISTER, COMMA, IMMEDIATE, LPAREN, REGISTER, RPAREN}},
 
     {"LW", 6, {REGISTER, COMMA, IMMEDIATE, LPAREN, REGISTER, RPAREN}},      // LPAREN is left paranthesis
@@ -44,11 +51,12 @@ int parser(Token tokens[], int count, int line_num){
         '1' for valid opcode.
     */
 
-    for(size_t i = 0; i<INSTRUCTION_COUNT; i++){
+    if(count == 0){
+        return 0;
+    }
 
-        if(count == 0){
-            return 0;
-        }
+
+    for(size_t i = 0; i<INSTRUCTION_COUNT; i++){
 
         // Comparing OPCODES from the instruction Database:
         if(strcmp(tokens[0].value, instruction_set[i].name) == 0){      

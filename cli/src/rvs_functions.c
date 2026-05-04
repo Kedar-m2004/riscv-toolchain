@@ -110,7 +110,7 @@ int run(int argc, char* argv[]){            // Features provided by "rvs run ...
     }
     else{
         char cmd[256];
-        snprintf(cmd, sizeof(cmd), "\"C:\\tools\\Simulator.exe\" \"%s\"", target );
+        snprintf(cmd, sizeof(cmd), "C:\\tools\\Simulator.exe \"%s\"", target );
         return system(cmd);
     }
 }

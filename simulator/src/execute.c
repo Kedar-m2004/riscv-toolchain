@@ -30,6 +30,10 @@ void execute_r_type(DecodedInstr* di){      // R-Type Instruction Execution
             reg[di->rd] = reg[di->rs1] & reg[di->rs2];
             break;
 
+        case 0x4:   // funct3 value for XOR Operation
+            reg[di->rd] = reg[di->rs1] ^ reg[di->rs2];
+            break;
+
         default:
             printf("\nUnknown R-Type funct3!");
     }
@@ -46,6 +50,10 @@ void execute_i_type(DecodedInstr* di){      // I-Type Instruction Execution
         
         case 0x6:   // ORI
             reg[di->rd] = reg[di->rs1] | di->imm;
+            break;
+
+        case 0x4:   // XORI
+            reg[di->rd] = reg[di->rs1] ^ di->imm;
             break;
 
         case 0x7:   // ANDI

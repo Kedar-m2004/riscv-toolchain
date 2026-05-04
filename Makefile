@@ -30,22 +30,30 @@ run: all
 	./Simulator.exe
 
 arithmetic: all
-	./Simulator.exe assembler/test/test_arithmetic.txt
+	./Simulator.exe assembler/test/test_arithmetic.asm
 	@cmd /c echo.
 
 branch: all
-	./Simulator.exe assembler/test/test_branch.txt
+	./Simulator.exe assembler/test/test_branch.asm
 	@cmd /c echo.
 
 memory: all
-	./Simulator.exe assembler/test/test_memory.txt
+	./Simulator.exe assembler/test/test_memory.asm
 	@cmd /c echo.
 
 jump: all
-	./Simulator.exe assembler/test/test_jump.txt
+	./Simulator.exe assembler/test/test_jump.asm
 	@cmd /c echo.
 
-test: arithmetic branch memory jump
+logic: all
+	./Simulator.exe assembler/test/test_logic.asm
+	@cmd /c echo.
+
+immediate_logic: all
+	./Simulator.exe assembler/test/test_immediate_logic.asm
+	@cmd /c echo.
+
+test: arithmetic branch memory jump logic immediate_logic
 
 rvs:
 	$(CC) $(CLI_SRC) $(CLI_CFLAGS) -o rvs
