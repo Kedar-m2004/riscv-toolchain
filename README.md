@@ -1,148 +1,145 @@
 # RISC-V Studio
 
-A custom **RISC-V assembler, ISA simulator, and installable command-line development platform** built completely in **C**, developed as part of a long-term systems programming and computer architecture initiative.
+A modular **RISC-V assembler, ISA simulator, and installable command-line development platform**, built completely in **C**.
 
-**RISC-V Studio** aims to evolve into a complete **AI-assisted computer architecture and hardware co-design platform**, built entirely from scratch.
+This project is being developed from scratch as a systems programming and computer architecture initiative, with strong emphasis on:
 
----
-
-# Vision
-
-## Phase 1 — RISC-V Studio Core (2026–2027)
-
-A **MATLAB-like learning and experimentation platform for computer architecture**, including:
-
-- Two-Pass Assembler
-- Instruction Set Simulator
-- 5-Stage Pipeline Simulator
-- Cache Simulator
-- Instruction Trace Viewer
-- Performance Profiler
-
-## Phase 2 — AI Verification
-
-- Automatic assembly test generation
-- Corner-case discovery
-- Regression testing
-- Assertion generation
-- Bug localization
-
-## Phase 3 — Hardware Co-Design
-
-- Workload analysis
-- Custom instruction recommendations
-- Accelerator suggestions
-- Verilog generation
-- Testbench generation
-- FPGA deployment
-
-## Phase 4 — Collaboration Ecosystem
-
-- Benchmark sharing
-- RTL versioning
-- Waveform diffing
-- Collaborative architecture experimentation
+* Correctness
+* Modularity
+* Portability
+* Developer Experience
+* Systems-Level Engineering
 
 ---
 
 # Current Development Stage
 
-## Milestone 1 Complete
-
-### Assembler + ISA Simulator + Portable CLI
-
-Current stable release:
+Current release:
 
 ```text
-v0.1.1
+v0.1.2-alpha
 ```
+
+Current milestone:
+
+> **Assembler + ISA Simulator + Portable CLI**
 
 ---
 
 # Features
 
-# Assembler
+# Two-Pass Assembler
 
-- Two-pass assembly process
-- Lexical analysis
-- Table-driven parsing
-- Symbol table generation
-- Label resolution
-- Intermediate code generation
-- Machine code generation
-- Binary output generation (`program.bin`)
-- Hexadecimal output generation (`program.hex`)
-- Token overflow protection
-- Safer token storage with bounds checking
+Features:
+
+* Lexical Analysis
+* Table-Driven Parsing
+* Symbol Table Generation
+* Label Resolution
+* Intermediate Code Generation
+* Machine Code Generation
+* Binary Output (`program.bin`)
+* Hex Output (`program.hex`)
+* Token Overflow Protection
+* Bounds-Checked Token Storage
 
 ---
 
 # ISA Simulator
 
-- Register file simulation
-- Instruction memory simulation
-- Fetch–Decode–Execute cycle
-- Arithmetic instruction execution
-- Memory instruction execution
-- Branch instruction execution
-- Jump instruction execution
-- Final register-state dump
+Features:
+
+* Register File Simulation
+* Instruction Memory Simulation
+* Fetch → Decode → Execute cycle
+* Arithmetic / Logical Instruction Execution
+* Memory Instruction Execution
+* Branch Instruction Execution
+* Jump Instruction Execution
+* Final Register-State Dump
 
 ---
 
 # CLI (`rvs`)
 
-- Native command-line interface
-- Install globally on Windows
-- Automatic PATH integration
-- Portable execution from any folder
-- Built-in regression tests
-- Execute custom `.asm` programs
-- Runtime diagnostics (`doctor`)
-- Version command
-- Help command
-- Command aliases
+Portable command-line interface for development and testing.
+
+Features:
+
+* Global Windows installation
+* Automatic PATH integration
+* Portable execution from any folder
+* Runtime diagnostics
+* Built-in regression testing
+* Execute custom `.asm` programs
+
+Supported commands:
+
+```bash
+rvs help
+rvs version
+rvs doctor
+rvs test
+rvs run <assembly_file>
+```
 
 Supported aliases:
 
 ```bash
--h
---help
+rvs -h
+rvs --help
 
--v
---version
+rvs -v
+rvs --version
 ```
 
 ---
 
-# Supported Instructions
+# Supported RV32I Instructions
 
-## Arithmetic
+Current coverage:
 
-- ADD
-- SUB
-- ADDI
+## Register-Register Arithmetic / Logic
+
+* ADD
+* SUB
+* AND
+* OR
+* XOR
+
+## Immediate Arithmetic / Logic
+
+* ADDI
+* ANDI
+* ORI
+* XORI
 
 ## Memory
 
-- LW
-- SW
+* LW
+* SW
 
 ## Branch
 
-- BEQ
-- BNE
+* BEQ
+* BNE
 
 ## Jump
 
-- JAL
-- JALR
+* JAL
+* JALR
 
 ## Custom
 
-- HLT
+* HLT
 
 > `HLT` is a custom halt instruction used by this simulator.
+
+Current RV32I coverage:
+
+```text
+14 / 32 instructions
+```
 
 ---
 
@@ -154,8 +151,7 @@ riscv-studio/
 ├── assembler/
 │   ├── include/
 │   ├── src/
-│   ├── test/
-│   └── build/
+│   └── test/
 │
 ├── simulator/
 │   ├── include/
@@ -164,6 +160,8 @@ riscv-studio/
 ├── cli/
 │   ├── include/
 │   └── src/
+│
+├── docs/
 │
 ├── scripts/
 │   └── install_path.ps1
@@ -180,9 +178,9 @@ riscv-studio/
 
 Before building:
 
-- GCC (MinGW)
-- mingw32-make
-- PowerShell
+* GCC (MinGW)
+* mingw32-make
+* PowerShell
 
 ---
 
@@ -191,7 +189,7 @@ Before building:
 ## Build Simulator
 
 ```bash
-mingw32-make
+mingw32-make all
 ```
 
 ## Build CLI
@@ -259,75 +257,24 @@ System is ready for RISC-V Studio.
 
 ---
 
-# CLI Usage
+# Testing
 
-## Help
-
-```bash
-rvs help
-rvs -h
-rvs --help
-```
-
-## Version
-
-```bash
-rvs version
-rvs -v
-rvs --version
-```
-
-## Diagnostics
-
-```bash
-rvs doctor
-```
-
-## Built-In Regression Tests
+## Run Full Regression Suite
 
 ```bash
 rvs test
 ```
 
-## Individual Tests
+Current test suite:
 
-```bash
-rvs run arithmetic
-rvs run branch
-rvs run memory
-rvs run jump
-```
+* arithmetic
+* branch
+* memory
+* jump
+* logic
+* immediate_logic
 
-## Run Custom Assembly Program
-
-Example:
-
-```asm
-ADDI R1, R0, 10
-ADDI R2, R0, 20
-ADD R3, R1, R2
-HLT
-```
-
-Run:
-
-```bash
-rvs run hello.asm
-```
-
-This works from **any folder on Windows**.
-
----
-
-# Uninstall
-
-```bash
-mingw32-make uninstall
-```
-
----
-
-# Testing
+All tests currently passing.
 
 ## Run Individual Tests
 
@@ -336,72 +283,62 @@ mingw32-make arithmetic
 mingw32-make branch
 mingw32-make memory
 mingw32-make jump
-```
-
-## Run Complete Test Suite
-
-```bash
-mingw32-make test
+mingw32-make logic
+mingw32-make immediate_logic
 ```
 
 ---
 
-# Engineering Improvements in v0.1.1
+# Example
 
-- Zero compiler warnings
-- Strict C11 builds
-- `-Wall -Wextra -Wpedantic`
-- Encoder API cleanup
-- Safer lexer token storage
-- Token overflow detection
-- Negative testing added
-- Windows install/uninstall workflow validated
+```asm
+ADDI R1, R0, 10
+ADDI R2, R0, 12
 
----
+AND R3, R1, R2
+OR R4, R1, R2
+XOR R5, R1, R2
 
-# Next Milestones
+HLT
+```
 
-## v0.1.2
+Expected:
 
-- Improve CLI path handling
-- Better file diagnostics
-- Consistent stderr-based error reporting
-- Exit-code cleanup
-- Negative test expansion
-
-## Milestone 2
-
-- Remaining RV32I instructions
-- Pipeline hazard detection
-- Forwarding
-- Stall logic
-- Branch prediction experiments
-
-## Milestone 3
-
-- Cache simulator
-- Instruction trace viewer
-- Performance profiler
+```text
+R3 = 8
+R4 = 14
+R5 = 6
+```
 
 ---
 
-This project is being developed incrementally with strong focus on:
+# Documentation
 
-- Correctness
-- Modularity
-- Portability
-- Developer Experience
-- Systems-Level Engineering
-- Computer Architecture Research
+ISA implementation progress:
+
+```text
+docs/rv32i_checklist.md
+```
+
+---
+
+# Current Focus
+
+Immediate engineering goals:
+
+* Complete RV32I base ISA
+* Improve regression coverage
+* Add debugger support
+* Build pipeline simulator
 
 ---
 
 # Author
 
-**Kedar Modak**  
-B.Tech Electrical Engineering  
+**Kedar Modak**
+B.Tech Electrical Engineering
 Systems Programming | Computer Architecture | RISC-V | Operating Systems
 
 - GitHub: https://github.com/Kedar-m2004
 - LinkedIn: https://linkedin.com/in/kedar-modak-56363b290/
-- Email: modak.kedar123@gmail.com
+- Email: kedar.modak30112004@gmail.com  
