@@ -63,5 +63,5 @@ uninstall:
 	-powershell -NoProfile -Command "Remove-Item -Force 'C:\tools\Simulator.exe' -ErrorAction SilentlyContinue"
 	
 clean:
-	-del Simulator.exe
-	-del rvs.exe
+	-powershell -NoProfile -Command "Remove-Item -Force 'Simulator.exe' -ErrorAction SilentlyContinue"
+	-powershell -NoProfile -Command "Remove-Item -Force 'rvs.exe' -ErrorAction SilentlyContinue"

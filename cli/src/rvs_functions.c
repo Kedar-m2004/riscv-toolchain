@@ -4,8 +4,16 @@
 #include<string.h>
 #include<ctype.h>
 #include<stdlib.h>
-#include<windows.h>
 #include"rvs_functions.h"
+
+#ifdef _WIN32
+#include<windows.h>
+#endif
+
+// We use _WIN32 to use safe dummy implementation of encapsulated parts, when run on non-Windows platform.
+// This is called platform abstraction.
+// #ifdef means "if defined"
+// #ifndef means "if not defined"
 
 /* This file includes thefollowing things:
     rvs_functions.h
@@ -100,11 +108,7 @@ int run(int argc, char* argv[]){            // Features provided by "rvs run ...
     }
     else{
         char cmd[256];
-        sprintf(
-            cmd, 
-            "C:\\tools\\Simulator.exe %s",
-            target
-        );
+        snprintf(cmd, sizeof(cmd), "\"C:\\tools\\Simulator.exe\" \"%s\"", target );
         return system(cmd);
     }
 }
@@ -112,7 +116,7 @@ int run(int argc, char* argv[]){            // Features provided by "rvs run ...
 
 
 int version(){
-    printf("RISC-V Studio CLI v0.1\n");
+    printf("RISC-V Studio CLI v0.1.1\n");
     printf("Build: May 2026\n");
     printf("Author: Kedar Modak\n");
 
@@ -148,7 +152,7 @@ static void print_check(const char* message, int passed){       // Helper func 0
 static int command_exists(const char* command){
     char cmd[128];
 
-    sprintf(cmd, "where %s >nul 2>nul", command);
+    snprintf(cmd, sizeof(cmd), "where %s >nul 2>nul", command);
 
     return (system(cmd) == 0);
 
@@ -158,6 +162,8 @@ static int command_exists(const char* command){
         system(cmd) == 0 → command succeeded
     */
 }
+
+#ifdef _WIN32
 
 static int path_exists(const char* path){       // Check whether this path exists and is a folder.
 
@@ -188,6 +194,22 @@ static int file_exists(const char* path){       // Check whether this path exist
         2. Path is NOT a folder
     */
 }
+
+#else
+
+static int path_exists(const char* path){
+    (void)path;         // Without this the compiler may warn: warning: unused parameter 'path'
+    return 0;
+}
+
+static int file_exists(const char* path){
+    (void)path;         // Without this the compiler may warn: warning: unused parameter 'path'
+    return 0;
+}
+
+#endif
+
+
 
 static int path_contains_ctools(){
 
