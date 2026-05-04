@@ -81,7 +81,9 @@ void print_help(){              // Helps the user to navigate through the CLI
 int run(int argc, char* argv[]){            // Features provided by "rvs run ..." command
 
     if(argc < 3){
-        printf("Error! Missing test name or assembly file!\n");
+        printf("[Error] Missing input.\n");
+        printf("Usage: rvs run <test_name>");
+        printf("    rvs run <assembly_file>");
         print_help();
         return 1;
     }
