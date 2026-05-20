@@ -78,6 +78,10 @@ void print_help(){              // Helps the user to navigate through the CLI
 
 
 
+int contains(const char* str, const char* keyword){                 // Helper function for run() function.
+    return (strstr(str, keyword) != NULL);
+}
+
 int run(int argc, char* argv[]){            // Features provided by "rvs run ..." command
 
     if(argc < 3){
@@ -92,19 +96,19 @@ int run(int argc, char* argv[]){            // Features provided by "rvs run ...
 
     char* target = argv[2];
 
-    if(strcmp(target, "arithmetic") == 0){
+    if(contains(target, "arithmetic") == 0){
         system("mingw32-make arithmetic");
         return 0;
     }
-    else if(strcmp(target, "branch") == 0){
+    else if(contains(target, "branch") == 0){
         system("mingw32-make branch");
         return 0;
     }
-    else if(strcmp(target, "memory") == 0){
+    else if(contains(target, "memory") == 0){
         system("mingw32-make memory");
         return 0;
     }
-    else if(strcmp(target, "jump") == 0){
+    else if(contains(target, "jump") == 0){
         system("mingw32-make jump");
         return 0;
     }
